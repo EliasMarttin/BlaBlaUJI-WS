@@ -73,8 +73,7 @@ public class GestorViajes {
      * @param os	stream de escritura asociado al fichero de datos
      */
     private void escribeFichero(FileWriter os) {
-        // TODO
-        //Se guarda en path local, por lo que no depende del path de la máquina.
+
         try (FileWriter file = new FileWriter("viajes.json")) {
             JSONArray array = new JSONArray();
             for (String clave:mapa.keySet()) {
@@ -181,12 +180,10 @@ public class GestorViajes {
      * @return JSONObject con la información del viaje. Vacío si no existe o no está disponible
      */
     public JSONObject reservaViaje(String codviaje, String codcli) {
-        //TODO
 
         Viaje viajeReservado = mapa.get(codviaje);
-        if(viajeReservado!=null && viajeReservado.anyadePasajero(codcli)){ // && !codcli.equals(viajeReservado.getCodprop() -> Respuesta de por qué está comentado. Fichero->@Respuestas_BancoPruebas
+        if(viajeReservado!=null && viajeReservado.anyadePasajero(codcli) && !codcli.equals(viajeReservado.getCodprop()))
             return viajeReservado.toJSON();
-        }
 
         return new JSONObject();
     }
@@ -199,7 +196,6 @@ public class GestorViajes {
      * @return	JSON del viaje en que se ha anulado la reserva. JSON vacio si no se ha anulado
      */
     public JSONObject anulaReserva(String codviaje, String codcli) {
-        //TODO
 
         Viaje viajeAnular = mapa.get(codviaje);
         if(viajeAnular == null || viajeAnular.finalizado() || !viajeAnular.getPasajeros().contains(codcli)){
@@ -242,7 +238,6 @@ public class GestorViajes {
      * @return	JSONObject con los datos del viaje ofertado
      */
     public JSONObject ofertaViaje(String codcli, String origen, String destino, String fecha, long precio, long numplazas) {
-        // TODO
 
         if (!es_fecha_valida(fecha) || origen.equals(destino) || precio < 0 || numplazas <= 0)
             return new JSONObject();
@@ -262,7 +257,6 @@ public class GestorViajes {
      * @return	JSONObject del viaje borrado. JSON vacio si no se ha borrado
      */
     public JSONObject borraViaje(String codviaje, String codcli) {
-        //TODO
 
         Viaje viaje = mapa.get(codviaje);
         if((viaje != null && viaje.getCodprop().equals(codcli)) && !viaje.finalizado())

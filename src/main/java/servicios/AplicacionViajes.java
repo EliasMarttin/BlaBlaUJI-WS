@@ -15,7 +15,7 @@ import java.util.Set;
 
 @ApplicationPath("/servicios2") // Innecesario si se incluye como elemento servlet-mapping en el fichero web.xml
 public class AplicacionViajes extends Application {
-   private Set<Object> singletons = new HashSet<Object>();
+   private Set<Object> singletons = new HashSet<>();
 
    public AplicacionViajes() {
       singletons.add(new RecursoViajes());
